@@ -5,9 +5,17 @@
   <title>Speech Detection</title>
 </head>
 <body>
-
+  <div class="note">
+    
   <div class="words" contenteditable>
   </div>
+
+  <button id="downloadButton">Download Note</button>
+   
+  </div>
+
+
+ 
 
 <script>
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -25,11 +33,23 @@
         p=document.createElement('p');
         words.appendChild(p);
     }
-    console.log(transcript);
 
   })
   recognition.addEventListener('end' ,recognition.start);
   recognition.start();
+
+const downloadButton = document.getElementById('downloadButton'); // Add a download button
+downloadButton.addEventListener('click', () => {
+  const transcript = document.querySelector('.words').textContent;
+  const blob = new Blob([transcript], { type: 'text/plain' });
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'my_note.txt'; // Set a default filename
+  link.click();
+});
+
+  
 
 
 </script>
@@ -41,10 +61,15 @@
     }
 
     body {
-      background: #ffc600;
+      background: #eae8e4;
       font-family: 'helvetica neue';
       font-weight: 200;
       font-size: 20px;
+    }
+
+    .note {
+      margin: 50px auto; /* Center the entire .note div horizontally */
+      text-align: center; /* Center content within .note div */
     }
 
     .words {
@@ -74,6 +99,19 @@
       border: 1px solid;
       border-color: transparent #efe4e4;
     }
+   
+    #downloadButton {
+  background-color: #4CAF50; /* Green background color */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block; 
+  font-size: 16px;
+  margin: 0 auto; /* Add some margin for spacing */
+  cursor: pointer; /* Indicate clickable behavior */
+}
   </style>
 
 </body>
