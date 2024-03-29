@@ -47,6 +47,9 @@ downloadButton.addEventListener('click', () => {
   link.href = url;
   link.download = 'my_note.txt'; // Set a default filename
   link.click();
+
+  //Clear the note after being downloaded
+  words.textContent = '';
 });
 
   
